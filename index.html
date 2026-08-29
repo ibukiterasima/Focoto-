@@ -1,0 +1,182 @@
+#<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+
+    <!-- iPhone向け -->
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+
+    <title>Focoto</title>
+
+    <!-- ファビコン -->
+    <link rel="icon" type="image/png" href="favicon.png">
+
+    <!-- iPhone ホーム画面用アイコン -->
+    <link rel="apple-touch-icon" href="icon-180.png">
+
+    <!-- PWA -->
+    <link rel="manifest" href="manifest.json">
+
+    <!-- iPhoneでアプリっぽく表示 -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="Focoto">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <main class="app">
+
+        <!-- ヘッダー -->
+        <header class="header">
+            <h1>Focoto</h1>
+        </header>
+
+        <!-- 写真表示エリア -->
+        <section class="photo-area">
+
+            <div id="emptyState" class="empty-state">
+                <div class="empty-icon">＋</div>
+                <p>写真を選択</p>
+            </div>
+
+            <canvas id="canvas"></canvas>
+
+        </section>
+
+        <!-- 写真選択 -->
+        <section class="select-area">
+
+            <label for="photoInput" class="photo-button">
+                写真を選択
+            </label>
+
+            <input
+                id="photoInput"
+                type="file"
+                accept="image/*"
+                hidden
+            >
+
+        </section>
+
+        <!-- 編集コントロール -->
+        <section id="controls" class="controls">
+
+            <div class="control">
+                <div class="control-header">
+                    <span>明るさ</span>
+                    <span id="brightnessValue">0</span>
+                </div>
+
+                <input
+                    id="brightness"
+                    type="range"
+                    min="-100"
+                    max="100"
+                    value="0"
+                >
+            </div>
+
+
+            <div class="control">
+                <div class="control-header">
+                    <span>シャドウ</span>
+                    <span id="shadowsValue">0</span>
+                </div>
+
+                <input
+                    id="shadows"
+                    type="range"
+                    min="-100"
+                    max="100"
+                    value="0"
+                >
+            </div>
+
+
+            <div class="control">
+                <div class="control-header">
+                    <span>コントラスト</span>
+                    <span id="contrastValue">0</span>
+                </div>
+
+                <input
+                    id="contrast"
+                    type="range"
+                    min="-100"
+                    max="100"
+                    value="0"
+                >
+            </div>
+
+
+            <div class="control">
+                <div class="control-header">
+                    <span>彩度</span>
+                    <span id="saturationValue">0</span>
+                </div>
+
+                <input
+                    id="saturation"
+                    type="range"
+                    min="-100"
+                    max="100"
+                    value="0"
+                >
+            </div>
+
+
+            <div class="control">
+                <div class="control-header">
+                    <span>ビネット</span>
+                    <span id="vignetteValue">0</span>
+                </div>
+
+                <input
+                    id="vignette"
+                    type="range"
+                    min="0"
+                    max="100"
+                    value="0"
+                >
+            </div>
+
+
+            <div class="control">
+                <div class="control-header">
+                    <span>フォーカス</span>
+                    <span id="focusValue">0</span>
+                </div>
+
+                <input
+                    id="focus"
+                    type="range"
+                    min="0"
+                    max="100"
+                    value="0"
+                >
+            </div>
+
+        </section>
+
+        <!-- 保存 -->
+        <section class="save-area">
+
+            <button id="saveButton" class="save-button">
+                写真を保存
+            </button>
+
+        </section>
+
+    </main>
+
+    <!-- JavaScript -->
+    <script src="app.js"></script>
+
+</body>
+</html>
