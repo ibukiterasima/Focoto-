@@ -1,156 +1,242 @@
-#<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="ja">
 <head>
     <meta charset="UTF-8">
 
-    <!-- iPhone向け -->
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta
+        name="viewport"
+        content="width=device-width,
+                 initial-scale=1,
+                 maximum-scale=1,
+                 viewport-fit=cover"
+    >
+
+    <meta name="theme-color" content="#f2f2f7">
 
     <title>Focoto</title>
 
-    <!-- ファビコン -->
-    <link rel="icon" type="image/png" href="favicon.png">
-
-    <!-- iPhone ホーム画面用アイコン -->
-    <link rel="apple-touch-icon" href="icon-180.png">
-
-    <!-- PWA -->
-    <link rel="manifest" href="manifest.json">
-
-    <!-- iPhoneでアプリっぽく表示 -->
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="default">
-    <meta name="apple-mobile-web-app-title" content="Focoto">
-
-    <!-- CSS -->
     <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-    <main class="app">
+<div class="app">
 
-        <!-- ヘッダー -->
-        <header class="header">
-            <h1>Focoto</h1>
-        </header>
+    <!-- ================================
+         ヘッダー
+         ================================ -->
 
-        <!-- 写真表示エリア -->
-        <section class="photo-area">
+    <header class="header">
 
-            <div id="emptyState" class="empty-state">
-                <div class="empty-icon">＋</div>
-                <p>写真を選択</p>
+        <h1>写真</h1>
+
+    </header>
+
+
+    <!-- ================================
+         写真選択
+         ================================ -->
+
+    <section class="select-area">
+
+        <label
+            for="photoInput"
+            class="photo-button"
+        >
+            写真を選択
+        </label>
+
+        <input
+            id="photoInput"
+            type="file"
+            accept="image/*"
+            hidden
+        >
+
+    </section>
+
+
+    <!-- ================================
+         写真表示
+         ================================ -->
+
+    <main class="photo-area">
+
+        <div
+            id="emptyState"
+            class="empty-state"
+        >
+
+            <div class="empty-icon">
+                ＋
             </div>
 
-            <canvas id="canvas"></canvas>
+            <p>
+                写真を選択してください
+            </p>
 
-        </section>
+        </div>
 
-        <!-- 写真選択 -->
-        <section class="select-area">
 
-            <label for="photoInput" class="photo-button">
-                写真を選択
-            </label>
+        <canvas
+            id="canvas"
+        ></canvas>
 
-            <input
-                id="photoInput"
-                type="file"
-                accept="image/*"
-                hidden
+    </main>
+
+
+    <!-- ================================
+         編集
+         ================================ -->
+
+    <section
+        id="controls"
+        class="controls"
+    >
+
+        <!-- ============================
+             モード切り替え
+             ============================ -->
+
+        <div class="mode-tabs">
+
+            <button
+                id="adjustModeButton"
+                class="mode-button active"
+                type="button"
             >
+                調整
+            </button>
 
-        </section>
+            <button
+                id="templateModeButton"
+                class="mode-button"
+                type="button"
+            >
+                マイテンプレ
+            </button>
 
-        <!-- 編集コントロール -->
-        <section id="controls" class="controls">
+        </div>
 
-            <div class="control">
-                <div class="control-header">
-                    <span>明るさ</span>
-                    <span id="brightnessValue">0</span>
+
+        <!-- ============================
+             調整画面
+             ============================ -->
+
+        <div
+            id="adjustmentPanel"
+            class="adjustment-panel"
+        >
+
+            <!-- 現在の調整名 -->
+
+            <div class="current-adjustment">
+
+                <div
+                    id="adjustmentIcon"
+                    class="adjustment-icon"
+                >
+                    ☀
                 </div>
+
+                <div
+                    id="adjustmentName"
+                    class="adjustment-name"
+                >
+                    明るさ
+                </div>
+
+                <div
+                    id="currentValue"
+                    class="current-value"
+                >
+                    0
+                </div>
+
+            </div>
+
+
+            <!-- スライダー -->
+
+            <div
+                id="sliderArea"
+                class="slider-area"
+            >
 
                 <input
                     id="brightness"
                     type="range"
                     min="-100"
                     max="100"
+                    step="1"
                     value="0"
                 >
-            </div>
-
-
-            <div class="control">
-                <div class="control-header">
-                    <span>シャドウ</span>
-                    <span id="shadowsValue">0</span>
-                </div>
 
                 <input
                     id="shadows"
                     type="range"
                     min="-100"
                     max="100"
+                    step="1"
                     value="0"
+                    hidden
                 >
-            </div>
-
-
-            <div class="control">
-                <div class="control-header">
-                    <span>コントラスト</span>
-                    <span id="contrastValue">0</span>
-                </div>
 
                 <input
                     id="contrast"
                     type="range"
                     min="-100"
                     max="100"
+                    step="1"
                     value="0"
+                    hidden
                 >
-            </div>
-
-
-            <div class="control">
-                <div class="control-header">
-                    <span>彩度</span>
-                    <span id="saturationValue">0</span>
-                </div>
 
                 <input
                     id="saturation"
                     type="range"
                     min="-100"
                     max="100"
+                    step="1"
                     value="0"
+                    hidden
                 >
-            </div>
-
-
-            <div class="control">
-                <div class="control-header">
-                    <span>ビネット</span>
-                    <span id="vignetteValue">0</span>
-                </div>
 
                 <input
                     id="vignette"
                     type="range"
-                    min="0"
+                    min="-100"
                     max="100"
+                    step="1"
                     value="0"
+                    hidden
                 >
+
             </div>
 
 
-            <div class="control">
-                <div class="control-header">
-                    <span>フォーカス</span>
-                    <span id="focusValue">0</span>
+            <!-- ========================
+                 フォーカス
+                 ======================== -->
+
+            <div
+                id="focusArea"
+                class="focus-area"
+                hidden
+            >
+
+                <div class="focus-header">
+
+                    <span>
+                        フォーカス度
+                    </span>
+
+                    <span
+                        id="focusValue"
+                    >
+                        0
+                    </span>
+
                 </div>
 
                 <input
@@ -158,25 +244,210 @@
                     type="range"
                     min="0"
                     max="100"
+                    step="1"
                     value="0"
                 >
+
+                <p class="focus-help">
+                    枠をドラッグ・ピンチ
+                </p>
+
             </div>
 
-        </section>
 
-        <!-- 保存 -->
-        <section class="save-area">
+            <!-- ========================
+                 調整項目
+                 ======================== -->
 
-            <button id="saveButton" class="save-button">
-                写真を保存
+            <div
+                class="adjustment-list"
+                id="adjustmentList"
+            >
+
+                <button
+                    class="adjustment-button active"
+                    data-adjustment="0"
+                    type="button"
+                >
+
+                    <span class="adjustment-button-icon">
+                        ☀
+                    </span>
+
+                    <span>
+                        明るさ
+                    </span>
+
+                    <span class="selection-dot"></span>
+
+                </button>
+
+
+                <button
+                    class="adjustment-button"
+                    data-adjustment="1"
+                    type="button"
+                >
+
+                    <span class="adjustment-button-icon">
+                        ◐
+                    </span>
+
+                    <span>
+                        シャドウ
+                    </span>
+
+                    <span class="selection-dot"></span>
+
+                </button>
+
+
+                <button
+                    class="adjustment-button"
+                    data-adjustment="2"
+                    type="button"
+                >
+
+                    <span class="adjustment-button-icon">
+                        ◑
+                    </span>
+
+                    <span>
+                        コントラスト
+                    </span>
+
+                    <span class="selection-dot"></span>
+
+                </button>
+
+
+                <button
+                    class="adjustment-button"
+                    data-adjustment="3"
+                    type="button"
+                >
+
+                    <span class="adjustment-button-icon">
+                        ◇
+                    </span>
+
+                    <span>
+                        彩度
+                    </span>
+
+                    <span class="selection-dot"></span>
+
+                </button>
+
+
+                <button
+                    class="adjustment-button"
+                    data-adjustment="4"
+                    type="button"
+                >
+
+                    <span class="adjustment-button-icon">
+                        ◌
+                    </span>
+
+                    <span>
+                        ビネット
+                    </span>
+
+                    <span class="selection-dot"></span>
+
+                </button>
+
+
+                <button
+                    class="adjustment-button"
+                    data-adjustment="5"
+                    type="button"
+                >
+
+                    <span class="adjustment-button-icon">
+                        ◎
+                    </span>
+
+                    <span>
+                        フォーカス
+                    </span>
+
+                    <span class="selection-dot"></span>
+
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <!-- ================================
+             マイテンプレ
+             ================================ -->
+
+        <div
+            id="templatePanel"
+            class="template-panel"
+            hidden
+        >
+
+            <button
+                id="saveTemplateButton"
+                class="template-save-button"
+                type="button"
+            >
+                ＋ 現在の調整をテンプレートとして保存
             </button>
 
-        </section>
 
-    </main>
+            <div
+                id="templateList"
+                class="template-list"
+            >
 
-    <!-- JavaScript -->
-    <script src="app.js"></script>
+                <p
+                    id="noTemplates"
+                    class="no-templates"
+                >
+                    保存したテンプレートはありません
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <!-- ================================
+             保存・キャンセル
+             ================================ -->
+
+        <div class="editor-actions">
+
+            <button
+                id="cancelButton"
+                type="button"
+                class="cancel-button"
+            >
+                キャンセル
+            </button>
+
+            <button
+                id="saveButton"
+                type="button"
+                class="save-button"
+            >
+                保存
+            </button>
+
+        </div>
+
+    </section>
+
+</div>
+
+
+<script src="app.js"></script>
 
 </body>
 </html>
