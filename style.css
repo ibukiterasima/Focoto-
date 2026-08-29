@@ -1,0 +1,429 @@
+* {
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+}
+
+html,
+body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    min-height: 100%;
+    font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        "SF Pro Display",
+        "Helvetica Neue",
+        sans-serif;
+
+    background: #f2f2f7;
+    color: #1c1c1e;
+}
+
+body {
+    overscroll-behavior: none;
+}
+
+button,
+input {
+    font: inherit;
+}
+
+button {
+    border: 0;
+    background: none;
+    cursor: pointer;
+}
+
+.app {
+    width: 100%;
+    min-height: 100vh;
+    min-height: 100dvh;
+
+    display: flex;
+    flex-direction: column;
+
+    background: #f2f2f7;
+}
+
+
+/* =====================================================
+   ヘッダー
+   ===================================================== */
+
+.header {
+    width: 100%;
+
+    padding:
+        calc(env(safe-area-inset-top) + 8px)
+        20px
+        12px;
+
+    background: #f2f2f7;
+}
+
+.header h1 {
+    margin: 0;
+
+    font-size: 34px;
+    line-height: 1.1;
+
+    font-weight: 700;
+    letter-spacing: -0.8px;
+}
+
+
+/* =====================================================
+   写真エリア
+   ===================================================== */
+
+.photo-area {
+    position: relative;
+
+    width: 100%;
+    flex: 1;
+
+    min-height: 280px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: #000;
+
+    overflow: hidden;
+}
+
+#canvas {
+    display: none;
+
+    max-width: 100%;
+    max-height: 100%;
+
+    width: auto;
+    height: auto;
+
+    object-fit: contain;
+
+    touch-action: none;
+}
+
+.empty-state {
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+    justify-content: center;
+
+    gap: 10px;
+
+    color: #fff;
+}
+
+.empty-icon {
+    width: 54px;
+    height: 54px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+
+    background: rgba(255, 255, 255, 0.15);
+
+    font-size: 32px;
+    font-weight: 300;
+}
+
+.empty-state p {
+    margin: 0;
+
+    font-size: 16px;
+
+    opacity: 0.9;
+}
+
+
+/* =====================================================
+   写真選択
+   ===================================================== */
+
+.select-area {
+    padding: 12px 20px 4px;
+
+    background: #f2f2f7;
+}
+
+.photo-button {
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    width: 100%;
+    min-height: 46px;
+
+    border-radius: 12px;
+
+    background: #007aff;
+    color: white;
+
+    font-size: 17px;
+    font-weight: 600;
+
+    user-select: none;
+    -webkit-user-select: none;
+}
+
+.photo-button:active {
+    opacity: 0.65;
+}
+
+
+/* =====================================================
+   編集パネル
+   ===================================================== */
+
+.controls {
+    display: none;
+
+    width: 100%;
+
+    padding:
+        14px
+        20px
+        calc(10px + env(safe-area-inset-bottom));
+
+    background: #f2f2f7;
+}
+
+
+/* =====================================================
+   調整項目
+   ===================================================== */
+
+.control {
+    width: 100%;
+
+    margin-bottom: 14px;
+}
+
+.control-header {
+    display: flex;
+
+    align-items: center;
+    justify-content: space-between;
+
+    margin-bottom: 5px;
+
+    font-size: 15px;
+}
+
+.control-header span:last-child {
+    color: #8e8e93;
+
+    min-width: 38px;
+
+    text-align: right;
+
+    font-variant-numeric: tabular-nums;
+}
+
+
+/* =====================================================
+   スライダー
+   ===================================================== */
+
+input[type="range"] {
+    width: 100%;
+
+    height: 28px;
+
+    margin: 0;
+
+    padding: 0;
+
+    background: transparent;
+
+    appearance: none;
+    -webkit-appearance: none;
+}
+
+input[type="range"]::-webkit-slider-runnable-track {
+    height: 4px;
+
+    border-radius: 999px;
+
+    background: #d1d1d6;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+    appearance: none;
+    -webkit-appearance: none;
+
+    width: 24px;
+    height: 24px;
+
+    margin-top: -10px;
+
+    border-radius: 50%;
+
+    background: #fff;
+
+    border: 1px solid #d1d1d6;
+
+    box-shadow:
+        0 1px 4px rgba(0, 0, 0, 0.2);
+}
+
+input[type="range"]::-moz-range-track {
+    height: 4px;
+
+    border-radius: 999px;
+
+    background: #d1d1d6;
+}
+
+input[type="range"]::-moz-range-thumb {
+    width: 24px;
+    height: 24px;
+
+    border: 1px solid #d1d1d6;
+
+    border-radius: 50%;
+
+    background: #fff;
+}
+
+
+/* =====================================================
+   保存
+   ===================================================== */
+
+.save-area {
+    padding:
+        8px
+        20px
+        calc(18px + env(safe-area-inset-bottom));
+
+    background: #f2f2f7;
+}
+
+.save-button {
+    width: 100%;
+
+    min-height: 48px;
+
+    border-radius: 13px;
+
+    background: #007aff;
+
+    color: white;
+
+    font-size: 17px;
+    font-weight: 600;
+}
+
+.save-button:active {
+    opacity: 0.65;
+}
+
+
+/* =====================================================
+   iPhone 横向画面
+   ===================================================== */
+
+@media (orientation: landscape) {
+
+    .header {
+        padding-top:
+            calc(env(safe-area-inset-top) + 5px);
+
+        padding-bottom: 6px;
+    }
+
+    .header h1 {
+        font-size: 24px;
+    }
+
+    .photo-area {
+        min-height: 180px;
+    }
+
+    .controls {
+        padding:
+            8px 20px;
+    }
+
+    .control {
+        margin-bottom: 8px;
+    }
+
+    .save-area {
+        padding-bottom:
+            calc(8px + env(safe-area-inset-bottom));
+    }
+}
+
+
+/* =====================================================
+   大きい画面
+   ===================================================== */
+
+@media (min-width: 700px) {
+
+    .app {
+        max-width: 900px;
+
+        margin: 0 auto;
+    }
+
+    .photo-area {
+        min-height: 420px;
+    }
+
+    .controls,
+    .select-area,
+    .save-area {
+        padding-left: 40px;
+        padding-right: 40px;
+    }
+}
+
+
+/* =====================================================
+   ダークモード
+   ===================================================== */
+
+@media (prefers-color-scheme: dark) {
+
+    html,
+    body,
+    .app,
+    .header,
+    .select-area,
+    .controls,
+    .save-area {
+        background: #000;
+        color: #fff;
+    }
+
+    .control-header span:last-child {
+        color: #98989d;
+    }
+
+    input[type="range"]::-webkit-slider-runnable-track {
+        background: #48484a;
+    }
+
+    input[type="range"]::-webkit-slider-thumb {
+        background: #f2f2f7;
+        border-color: #636366;
+    }
+
+    .empty-icon {
+        background: rgba(255, 255, 255, 0.12);
+    }
+}
